@@ -1,101 +1,113 @@
-.about-container {
-  padding: 10px;
-  background-color: transparent;
+.about-page-viewport {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: flex-start; /* Starts at top but allows centering if content is short */
+  width: 100%;
+  min-height: 100%;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  box-sizing: border-box;
 }
 
 .about-glass-card {
+  width: 100%;
+  max-width: 1200px; /* Limits width for readability on ultra-wide screens */
   background: #ffffff;
-  border-radius: 12px;
-  padding: 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid #eef0f2;
-}
-
-.project-tag {
-  background: #2c3e50;
-  color: #ffffff;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  border: 2px solid #eeeeee;
+  border-radius: 24px;
+  padding: 60px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
 .about-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+}
+
+.project-tag {
+  background: #000000;
+  color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .about-header h1 {
-  font-size: 2.4rem;
-  color: #1a1a1a;
-  margin: 12px 0 8px;
-  font-weight: 800;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #000000;
+  margin: 20px 0 10px 0;
 }
 
 .subtitle {
-  font-size: 1.1rem;
-  color: #666;
+  font-size: 1.2rem;
+  color: #333333; /* Dark gray for contrast */
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .vision-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 35px;
-  margin-bottom: 50px;
-  padding-bottom: 35px;
-  border-bottom: 1px solid #f0f0f0;
+  gap: 30px;
+  margin-bottom: 80px;
+}
+
+.vision-item {
+  padding: 35px;
+  background: #fafafa;
+  border-radius: 20px;
+  border: 1px solid #eeeeee;
 }
 
 .vision-item h3 {
-  color: #3498db;
-  font-size: 1.25rem;
-  margin-bottom: 12px;
+  color: #000000;
+  font-weight: 800;
+  margin-bottom: 15px;
 }
 
 .vision-item p {
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #444;
+  color: #000000; /* Ensuring visibility */
+  line-height: 1.6;
 }
 
 .section-title {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 35px;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #000000;
+  margin-bottom: 40px;
 }
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
 }
 
 .member-card {
   background: #ffffff;
-  padding: 25px 15px;
-  border-radius: 10px;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #eeeeee;
+  border-radius: 24px;
+  padding: 30px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .member-card:hover {
-  transform: translateY(-4px);
-  border-color: #3498db;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  transform: translateY(-5px);
+  border-color: #000000;
 }
 
 .image-wrapper {
-  width: 75px;
-  height: 75px;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 20px auto;
   border-radius: 50%;
   overflow: hidden;
-  margin: 0 auto 15px;
-  background: #f8f9fa;
-  border: 2px solid #3498db;
+  border: 4px solid #000000;
 }
 
 .image-wrapper img {
@@ -106,36 +118,44 @@
 
 .role-badge {
   display: inline-block;
-  background: #3498db;
-  color: white;
-  font-size: 0.6rem;
-  font-weight: 800;
-  padding: 3px 12px;
-  border-radius: 4px;
-  margin-bottom: 12px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: #666666;
   text-transform: uppercase;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #000000;
 }
 
 .member-card h3 {
-  font-size: 1.15rem;
-  margin-bottom: 10px;
-  color: #2c3e50;
+  margin: 10px 0;
+  color: #000000;
+  font-weight: 800;
 }
 
 .member-card p {
-  font-size: 0.85rem;
-  color: #7f8c8d;
+  font-size: 0.95rem;
+  color: #333333;
   line-height: 1.5;
 }
 
 .about-footer {
-  margin-top: 60px;
+  margin-top: 80px;
   text-align: center;
-  color: #bdc3c7;
-  font-size: 0.8rem;
+  border-top: 1px solid #eeeeee;
+  padding-top: 30px;
+  color: #888888;
+  font-size: 0.85rem;
 }
 
+/* For smaller screens, stack the vision grid */
 @media (max-width: 900px) {
-  .team-grid { grid-template-columns: repeat(2, 1fr); }
-  .vision-grid { grid-template-columns: 1fr; }
+  .vision-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-glass-card {
+    padding: 30px;
+  }
+  .about-header h1 {
+    font-size: 2.5rem;
+  }
 }

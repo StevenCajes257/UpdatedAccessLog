@@ -1,0 +1,212 @@
+.seelogs-view-container {
+    padding: 40px 20px;
+    background-color: #f1f5f9;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+.seelogs-content-wrapper {
+    width: 1200px;
+    max-width: 1160px; /* Wider layout */
+    margin: 0 auto;
+}
+
+/* Navigation */
+.seelogs-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    marginBottom: 30px;
+}
+
+.seelogs-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.seelogs-action-group {
+    display: flex;
+    gap: 12px;
+}
+
+/* Buttons */
+.seelogs-btn-csv, .seelogs-btn-pdf {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.seelogs-btn-csv {
+    background: #fff;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.seelogs-btn-pdf {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+}
+
+.seelogs-btn-csv:hover {
+    background: #f8fafc;
+}
+
+.seelogs-btn-pdf:hover {
+    background: #1d4ed8;
+}
+
+/* Header Card */
+.seelogs-header-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px 16px 0 0;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.seelogs-header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.seelogs-title-section h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: -0.5px;
+}
+
+.seelogs-title-section p {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.seelogs-filter-info {
+    text-align: right;
+}
+
+.dept-tag {
+    font-size: 13px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.year-tag {
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* Main Table Content */
+.seelogs-main-card {
+    background: #fff;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.seelogs-date-group {
+    margin-bottom: 40px;
+}
+
+.seelogs-date-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 15px;
+}
+
+.seelogs-date-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #1e293b;
+}
+
+.seelogs-table-responsive {
+    overflow-x: auto;
+}
+
+.seelogs-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.seelogs-table th {
+    padding: 12px 15px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+
+.seelogs-table td {
+    padding: 15px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.seelogs-table tr {
+    border-bottom: 1px solid #f8fafc;
+}
+
+.student-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.student-name-cell span {
+    font-weight: 600;
+}
+
+.time-in-cell {
+    color: #059669;
+    font-weight: 700;
+}
+
+.time-out-cell {
+    color: #dc2626;
+    font-weight: 700;
+}
+
+/* Empty State */
+.seelogs-empty-state {
+    padding: 60px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+.empty-icon {
+    margin-bottom: 15px;
+    opacity: 0.2;
+}

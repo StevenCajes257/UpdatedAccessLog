@@ -10,13 +10,13 @@ import member6Img from '../assets/team/ProjectManager.png';
 const AboutUs = () => {
   const teamMembers = [
     {
-      name: "Jigie Caitom", // Replace with actual name
+      name: "Jigie Caitom",
       role: "Project Manager",
       bio: "Strategizes project timelines and resource allocation, ensuring that Access Log meets all security and administrative requirements.",
       image: member6Img
     },
     {
-      name: "Michelle A. Cajes", // Replace with actual name
+      name: "Michelle A. Cajes",
       role: "System Analyst",
       bio: "Analyzes organizational data flows to optimize how the system handles high-volume traffic in libraries and corporate offices.",
       image: member5Img
@@ -28,19 +28,19 @@ const AboutUs = () => {
       image: member2Img
     },
     {
-      name: "Marianne T. Gavas", // Replace with actual name
+      name: "Marianne T. Gavas",
       role: "Designer (UI/UX)",
       bio: "Focused on creating a high-end, professional interface that simplifies complex attendance reporting for administrators.",
       image: member1Img
     },
     {
-      name: "Stephanie Garay", // Replace with actual name
+      name: "Stephanie Garay",
       role: "Quality Assurance (QA)",
       bio: "Ensures 100% reliability of the RFID scanning process and system stability across various network environments and hardware setups.",
       image: member4Img
     },
     {
-      name: "Raechelle Anne B. Cajes", // Replace with actual name
+      name: "Raechelle Anne B. Cajes",
       role: "Documentation Specialist",
       bio: "Author of the technical framework and user manuals, ensuring the system's architecture and logic are clearly defined for future scaling.",
       image: member3Img
@@ -48,7 +48,7 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="about-container">
+    <div className="about-page-viewport">
       <div className="about-glass-card">
         <header className="about-header">
           <span className="project-tag">Enterprise Access Solutions</span>

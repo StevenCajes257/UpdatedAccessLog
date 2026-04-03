@@ -1,41 +1,28 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   ChevronLeft, 
-  Filter, 
   Calendar as CalendarIcon, 
   CheckCircle2, 
   Loader2, 
   User,
-  ArrowRight,
-  Database
+  ArrowRight
 } from 'lucide-react';
 import { db } from '../firebaseConfig'; 
 import { ref, onValue } from 'firebase/database';
 import SeeLogs from './SeeLogs'; 
-import './OfficialReportView.css';
+import './UserLogs.css';
 
-export default function OfficialReportView({ reportType, onBack, targetUser }) {
+export default function UserLogs({ user, reportType, onBack }) {
   const [logData, setLogData] = useState({});
   const [selectedPeriods, setSelectedPeriods] = useState([]); 
   const [viewingLogs, setViewingLogs] = useState(false); 
+  const [loading, setLoading] = useState(true);
   
   const [filterMonth, setFilterMonth] = useState(() => {
     const now = new Date();
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
   });
-
   const [filterYear, setFilterYear] = useState(() => new Date().getFullYear().toString());
-  const [loading, setLoading] = useState(true);
-  const [deptFilter, setDeptFilter] = useState('ALL');
-  const [yearFilter, setYearFilter] = useState('ALL');
-
-  const departments = [
-    "Bachelor of Science in Information Technology", 
-    "Bachelor of Science in Office Administration", 
-    "Bachelor of Science in Criminology", 
-    "Bachelor of Science in Political Science", 
-    "Bachelor of Science in Education"
-  ];
 
   useEffect(() => {
     const attendanceRef = ref(db, 'attendance');
@@ -82,51 +69,140 @@ export default function OfficialReportView({ reportType, onBack, targetUser }) {
       });
       return weeks.reverse();
     }
+
     return allDates.map(date => ({ id: date, label: date, dates: [date] })).reverse();
   }, [filterMonth, filterYear, reportType]);
 
   const availablePeriods = useMemo(() => {
+    // Get the user's unique identifier from the user object
+    // Based on your JSON, users are identified by their Firebase key (e.g., "65C987E0", "37D13B25")
+    const userId = user?.id;
+    const userName = String(user?.name || '').trim();
+
     return periods.map(period => {
-      let combinedLogs = [];
+      let userLogs = [];
+
       period.dates.forEach(date => {
-        const dayLogs = logData[date] ? Object.values(logData[date]) : [];
-        combinedLogs = [...combinedLogs, ...dayLogs.map(l => ({ ...l, date }))];
+        const dayData = logData[date];
+        if (!dayData) return;
+        
+        // Iterate through all entries for this date
+        Object.entries(dayData).forEach(([entryKey, entry]) => {
+          // Check if this entry belongs to the current user
+          // Match by uid (most reliable) OR by entryKey (for simple entries) OR by name
+          const entryUid = String(entry.uid || '').trim();
+          const entryName = String(entry.name || '').trim();
+          
+          let isMatch = false;
+          
+          // Match by user ID (Firebase key like "65C987E0")
+          if (userId && (entryKey === userId || entryUid === userId)) {
+            isMatch = true;
+          }
+          // Match by name (fallback)
+          else if (userName && entryName === userName) {
+            isMatch = true;
+          }
+          
+          if (isMatch) {
+            // This is a session log (has timeIn/timeOut) - from your JSON structure
+            if (entry.timeIn || entry.timeOut) {
+              userLogs.push({
+                ...entry,
+                date,
+                entryKey,
+                logType: 'session'
+              });
+            }
+            // This is a simple IN/OUT log (has status)
+            else if (entry.status) {
+              userLogs.push({
+                ...entry,
+                date,
+                entryKey,
+                logType: 'status'
+              });
+            }
+          }
+        });
       });
 
-      const filteredLogs = combinedLogs.filter(log => {
-        // If targetUser exists, filter strictly by UID (or studentId depending on your DB key)
-        if (targetUser) {
-          return log.uid === targetUser.id || log.idNumber === targetUser.idNumber;
+      // Count IN logs
+      // For sessions: count if timeIn exists and is not '--'
+      // For status logs: count if status is 'IN'
+      const ins = userLogs.filter(log => {
+        if (log.logType === 'session') {
+          return log.timeIn && log.timeIn !== '--';
         }
-        const matchesDept = deptFilter === 'ALL' || log.department === deptFilter;
-        const matchesYear = yearFilter === 'ALL' || log.yearLevel === yearFilter;
-        const isNotAdmin = log.role?.toLowerCase() !== 'admin'; 
-        return matchesDept && matchesYear && isNotAdmin;
-      });
+        return log.status === 'IN';
+      }).length;
+
+      // Count OUT logs
+      // For sessions: count if timeOut exists and is not '--'
+      // For status logs: count if status is 'OUT'
+      const outs = userLogs.filter(log => {
+        if (log.logType === 'session') {
+          return log.timeOut && log.timeOut !== '--';
+        }
+        return log.status === 'OUT';
+      }).length;
+
+      // Total logs = IN + OUT (each session contributes both)
+      const totalLogs = ins + outs;
 
       return {
         ...period,
-        count: filteredLogs.length,
-        ins: filteredLogs.filter(l => l.timeIn && l.timeIn !== '--').length,
-        outs: filteredLogs.filter(l => l.timeOut && l.timeOut !== '--').length,
-        rawRecords: filteredLogs
+        count: totalLogs,
+        ins: ins,
+        outs: outs,
+        rawRecords: userLogs
       };
     });
-  }, [logData, periods, deptFilter, yearFilter, targetUser]);
+  }, [logData, periods, user]);
 
   const selectedLogsData = useMemo(() => {
-    return availablePeriods.filter(p => selectedPeriods.includes(p.id)).flatMap(p => p.rawRecords);
-  }, [availablePeriods, selectedPeriods]);
+    const userId = user?.id;
+    const userName = String(user?.name || '').trim();
+
+    const logs = availablePeriods
+      .filter(p => selectedPeriods.includes(p.id))
+      .flatMap(p => p.rawRecords)
+      .filter(log => {
+        const logUid = String(log.uid || '').trim();
+        const logName = String(log.name || '').trim();
+        return (userId && (log.entryKey === userId || logUid === userId)) || 
+               (userName && logName === userName);
+      });
+
+    // Remove duplicates based on date and time
+    const uniqueLogs = Array.from(
+      new Map(
+        logs.map(l => [
+          `${l.date}-${l.timeIn}-${l.timeOut}-${l.status}`,
+          l
+        ])
+      ).values()
+    );
+
+    return uniqueLogs.sort((a, b) => {
+      const timeA = a.timeIn || a.timestamp || '00:00';
+      const timeB = b.timeIn || b.timestamp || '00:00';
+      const dateA = new Date(`${a.date} ${timeA}`);
+      const dateB = new Date(`${b.date} ${timeB}`);
+      return dateB - dateA;
+    });
+  }, [availablePeriods, selectedPeriods, user]);
 
   if (viewingLogs) {
     return (
       <SeeLogs 
         logs={selectedLogsData} 
         filters={{ 
-          dept: deptFilter, 
-          year: yearFilter, 
+          userName: user.name,
+          dept: user.department || 'N/A',
+          year: user.yearLevel || 'N/A',
           month: reportType === 'Monthly' ? filterYear : filterMonth,
-          userName: targetUser?.name 
+          type: reportType 
         }} 
         onBack={() => setViewingLogs(false)} 
       />
@@ -138,18 +214,18 @@ export default function OfficialReportView({ reportType, onBack, targetUser }) {
       <div className="top-nav">
         <button className="back-nav-btn" onClick={onBack}>
           <ChevronLeft size={20} />
-          <span>Back to Report Menu</span>
+          <span>Back to User List</span>
         </button>
       </div>
 
       <header className="report-view-header">
         <div className="header-main-info">
-          <div className={`view-icon-badge ${targetUser ? 'user-mode' : ''}`}>
-            {targetUser ? <User size={24} /> : <Database size={24} />}
+          <div className="view-icon-badge user-mode">
+            <User size={24} />
           </div>
           <div className="title-stack">
-            <h1>{targetUser ? targetUser.name : `${reportType} Report`}</h1>
-            <p>{targetUser ? `ID: ${targetUser.idNumber || 'N/A'} • ${targetUser.role}` : `Access logs categorized by ${reportType.toLowerCase()} intervals.`}</p>
+            <h1>{user.name}</h1>
+            <p>User Logs • {reportType} View</p>
           </div>
         </div>
         
@@ -167,35 +243,7 @@ export default function OfficialReportView({ reportType, onBack, targetUser }) {
         </div>
       </header>
 
-      <div className={`view-grid ${targetUser ? 'single-col' : ''}`}>
-        {!targetUser && (
-          <aside className="filter-sidebar">
-            <div className="sidebar-section">
-              <div className="section-title">
-                <Filter size={16} />
-                <span>Data Filters</span>
-              </div>
-              <div className="filter-item">
-                <label>Department</label>
-                <select className="modern-select" value={deptFilter} onChange={(e) => setDeptFilter(e.target.value)}>
-                  <option value="ALL">All Departments</option>
-                  {departments.map(d => <option key={d} value={d}>{d}</option>)}
-                </select>
-              </div>
-              <div className="filter-item">
-                <label>Year Level</label>
-                <select className="modern-select" value={yearFilter} onChange={(e) => setYearFilter(e.target.value)}>
-                  <option value="ALL">All Levels</option>
-                  <option value="1st Year">1st Year</option>
-                  <option value="2nd Year">2nd Year</option>
-                  <option value="3rd Year">3rd Year</option>
-                  <option value="4th Year">4th Year</option>
-                </select>
-              </div>
-            </div>
-          </aside>
-        )}
-
+      <div className="view-grid single-col">
         <main className="timeline-container">
           <div className="section-title">
             <CalendarIcon size={16} />
@@ -209,7 +257,7 @@ export default function OfficialReportView({ reportType, onBack, targetUser }) {
               availablePeriods.map((period) => (
                 <div 
                   key={period.id} 
-                  className={`period-row ${selectedPeriods.includes(period.id) ? 'is-selected' : ''}`}
+                  className={`period-row ${selectedPeriods.includes(period.id) ? 'is-selected' : ''} ${period.count > 0 ? 'has-logs' : ''}`}
                   onClick={() => setSelectedPeriods(prev => prev.includes(period.id) ? prev.filter(d => d !== period.id) : [...prev, period.id])}
                 >
                   <div className="row-selection">
@@ -223,7 +271,7 @@ export default function OfficialReportView({ reportType, onBack, targetUser }) {
                   </div>
 
                   <div className="row-stats">
-                    <div className="stat-pill count">
+                    <div className={`stat-pill ${period.count > 0 ? 'count-active' : 'count'}`}>
                       <span>{period.count} Logs</span>
                     </div>
                     <div className="stat-group">
@@ -234,7 +282,7 @@ export default function OfficialReportView({ reportType, onBack, targetUser }) {
                 </div>
               ))
             ) : (
-              <div className="empty-state">No data available for this selection.</div>
+              <div className="empty-state">No records found.</div>
             )}
           </div>
         </main>
@@ -244,10 +292,10 @@ export default function OfficialReportView({ reportType, onBack, targetUser }) {
         <div className="floating-action-bar fade-in-up">
           <div className="bar-info">
             <span className="selection-count">{selectedPeriods.length}</span>
-            <span>Periods Selected</span>
+            <span>Selected</span>
           </div>
           <button className="primary-action-btn" onClick={() => setViewingLogs(true)}>
-            Generate Log View <ArrowRight size={18} />
+            View Details <ArrowRight size={18} />
           </button>
         </div>
       )}

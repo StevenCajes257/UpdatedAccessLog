@@ -1,0 +1,211 @@
+.report-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.header-main-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.view-icon-badge {
+    width: 56px;
+    height: 56px;
+    background: #000;
+    color: #fff;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.view-icon-badge.user-mode {
+    background: #2563eb;
+}
+
+.title-stack h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.title-stack p {
+    color: #64748b;
+    margin: 4px 0 0 0;
+    font-size: 0.95rem;
+}
+
+.modern-select, .modern-input {
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+    background: #fff;
+    outline: none;
+    color: #000;
+}
+
+.modern-select.highlight, .modern-input.highlight {
+    border-color: #000;
+    border-width: 1.5px;
+    color: #fff;
+    background-color: #000;
+}
+
+.view-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 30px;
+}
+
+.view-grid.single-col {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.filter-item {
+    margin-bottom: 20px;
+}
+
+.filter-item label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.filter-item .modern-select {
+    width: 100%;
+}
+
+.periods-list {
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.period-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.period-row:hover { background: #fcfcfc; }
+.period-row.is-selected { background: #f8fafc; }
+
+.row-selection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.is-selected .custom-checkbox {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+}
+
+.row-label { font-weight: 600; font-size: 0.95rem; display: block; }
+.row-sub { font-size: 0.8rem; color: #94a3b8; }
+
+.row-stats {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.stat-pill {
+    background: #f1f5f9;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.in-text { color: #16a34a; font-weight: 700; font-size: 0.85rem; }
+.out-text { color: #ea580c; font-weight: 700; font-size: 0.85rem; }
+
+.floating-action-bar {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    padding: 12px 12px 12px 24px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.selection-count {
+    background: #2563eb;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-right: 8px;
+}
+
+.primary-action-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.3s ease-out;
+}
