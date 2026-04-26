@@ -1,80 +1,358 @@
+/* UserActivityReportView.css - Full Dark Mode Support */
+
 .user-activity-view {
-  background-color: #ffffff;
-  min-height: 100vh;
-  padding: 20px;
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg-primary);
+  padding: 24px;
+  transition: background 0.3s ease;
 }
 
-/* Force black text for visibility */
-.text-black {
-  color: #000000 !important;
+/* Back Navigation */
+.back-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.back-nav:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* View Header */
+.view-header {
+  margin-bottom: 28px;
 }
 
 .view-header h1 {
-  font-size: 24px;
+  font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
 }
 
-.search-container {
+.view-header p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* FILTER BAR (horizontal, like OfficialReportView) */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  align-items: flex-end;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+}
+
+.filter-item label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.modern-select {
+  padding: 8px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.search-wrapper {
   display: flex;
   align-items: center;
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 10px 15px;
-  margin: 20px 0;
+  gap: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 8px 12px;
 }
 
-.search-input {
-  background: transparent;
+.search-wrapper input {
   border: none;
-  color: #000000;
-  width: 100%;
-  margin-left: 10px;
+  background: transparent;
   outline: none;
+  color: var(--text-primary);
+  width: 100%;
 }
 
+.search-icon-small {
+  color: var(--text-secondary);
+}
+
+/* Users List Card */
+.users-list-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.list-header svg {
+  color: var(--primary-color);
+}
+
+.list-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* User Items Container */
+.user-items {
+  padding: 20px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.user-items::-webkit-scrollbar {
+  width: 6px;
+}
+
+.user-items::-webkit-scrollbar-track {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.user-items::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+.user-items::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* User Item Row */
 .user-item-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
+  padding: 16px 20px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
   margin-bottom: 12px;
-  background: #ffffff;
+  transition: all 0.2s;
+}
+
+.user-item-row:last-child {
+  margin-bottom: 0;
+}
+
+.user-item-row:hover {
+  transform: translateX(4px);
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* User Main Info */
+.user-main-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex: 1;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-avatar svg {
+  color: var(--text-secondary);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .user-name {
   font-weight: 600;
-  display: block;
+  color: var(--text-primary);
+  font-size: 0.95rem;
 }
 
+.user-meta {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 2px;
+}
+
+.rfid-text {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-family: monospace;
+}
+
+/* View Logs Button */
 .btn-view-logs {
-  background-color: #0f172a; /* Dark Navy/Black */
-  color: #ffffff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 8px 18px;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .btn-view-logs:hover {
-  background-color: #334155;
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.role-badge {
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
+.btn-view-logs:active {
+  transform: translateY(0);
 }
 
-.role-badge.staff { background: #e2e8f0; color: #0f172a; }
-.role-badge.student { background: #dcfce7; color: #166534; }
-.role-badge.instructor { background: #fee2e2; color: #991b1b; }
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.empty-state svg {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-activity-view {
+    padding: 16px;
+  }
+  
+  .view-header h1 {
+    font-size: 1.35rem;
+  }
+  
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-item {
+    width: 100%;
+  }
+  
+  .user-item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .btn-view-logs {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .list-header {
+    padding: 14px 18px;
+  }
+  
+  .user-items {
+    padding: 16px;
+  }
+  
+  .user-main-info {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .user-name {
+    font-size: 0.85rem;
+  }
+  
+  .rfid-text {
+    font-size: 0.65rem;
+  }
+  
+  .btn-view-logs {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
+  
+  .empty-state svg {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .empty-state p {
+    font-size: 0.8rem;
+  }
+}

@@ -1,72 +1,265 @@
+/* Sidebar.css – Responsive, prevents overlap, supports collapsed/expanded modes */
+
+:root {
+  --sidebar-width-expanded: 260px;
+  --sidebar-width-collapsed: 70px;
+  --transition-speed: 0.3s;
+}
+
+/* Sidebar container */
 .app-sidebar {
-  width: 260px;
-  background-color: #ffffff;
-  border-right: 2px solid #eeeeee;
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100vh;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  position: fixed;
-  left: 0;
-  top: 0;
+  transition: width var(--transition-speed) ease;
+  z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
+/* Expanded & collapsed states */
+.app-sidebar.open {
+  width: var(--sidebar-width-expanded);
+}
+.app-sidebar.collapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+/* Sidebar Header */
 .sidebar-header {
-  padding: 30px 20px;
-  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--border-color);
+  min-height: 73px;
+}
+.app-sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 20px 0;
 }
 
-.brand-title {
-  color: #000000;
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -0.5px;
+/* Brand logo – image + text */
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+.brand-icon {
+  width: 48px;          /* bigger */
+  height: 48px;
+  border-radius: 50%;   /* circular */
+  object-fit: cover;    /* ensures the image fills the circle without distortion */
+  flex-shrink: 0;
+}
+.brand-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+}
+/* Hide text when sidebar is collapsed (desktop) */
+.app-sidebar.collapsed .brand-text {
+  display: none;
+}
+/* Center logo only when collapsed, and keep it circular */
+.app-sidebar.collapsed .brand-logo {
+  justify-content: center;
+  gap: 0;
 }
 
+/* Navigation */
 .sidebar-nav {
-  padding: 20px 10px;
-  flex-grow: 1;
+  flex: 1;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-
 .nav-item {
-  width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 15px;
-  margin-bottom: 5px;
+  padding: 10px 12px;
+  width: 100%;
+  background: none;
   border: none;
-  background: transparent;
-  color: #444444;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
 }
-
+.app-sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 10px;
+}
 .nav-item:hover {
-  background-color: #f5f5f5;
-  color: #000000;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
-
 .nav-item.active {
-  background-color: #000000;
-  color: #ffffff;
+  background: var(--primary-light);
+  color: var(--primary-color);
 }
-
 .nav-icon {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.app-sidebar.collapsed .nav-label {
+  display: none;
 }
 
+/* Sidebar Footer */
 .sidebar-footer {
-  padding: 20px;
-  border-top: 1px solid #f0f0f0;
+  padding: 20px 12px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.theme-toggle, .logout-btn-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  width: 100%;
+}
+.app-sidebar.collapsed .theme-toggle,
+.app-sidebar.collapsed .logout-btn-sidebar {
+  justify-content: center;
+  padding: 10px;
+}
+.app-sidebar.collapsed .theme-toggle .nav-label,
+.app-sidebar.collapsed .logout-btn-sidebar .nav-label {
+  display: none;
+}
+.theme-toggle:hover, .logout-btn-sidebar:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+.logout-btn-sidebar:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+.copyright {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
 }
 
-.sidebar-footer p {
+/* Tooltip for collapsed mode (using title attribute) */
+.app-sidebar.collapsed .nav-item[title]:hover::after,
+.app-sidebar.collapsed .theme-toggle[title]:hover::after,
+.app-sidebar.collapsed .logout-btn-sidebar[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: var(--sidebar-width-collapsed);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  border-radius: 6px;
   font-size: 0.75rem;
-  color: #999999;
-  margin: 0;
+  white-space: nowrap;
+  z-index: 1100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+}
+
+/* ----- DESKTOP (>= 768px) ----- */
+@media (min-width: 768px) {
+  .app-sidebar {
+    position: relative;
+    height: 100vh;
+  }
+}
+
+/* ----- MOBILE (<= 767px) – icon‑only slide‑in (70px) ----- */
+@media (max-width: 767px) {
+  .app-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1050;
+    transition: transform var(--transition-speed) ease;
+    width: var(--sidebar-width-collapsed) !important;
+    transform: translateX(-100%);
+  }
+  .app-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+  }
+  .app-sidebar.collapsed {
+    transform: translateX(-100%);
+  }
+  /* Hide all labels on mobile (icon‑only) */
+  .app-sidebar .nav-label {
+    display: none;
+  }
+  /* Hide the text "Access Log" on mobile, keep only the logo */
+  .brand-text {
+    display: none;
+  }
+  /* Center footer buttons */
+  .app-sidebar .theme-toggle,
+  .app-sidebar .logout-btn-sidebar {
+    justify-content: center;
+    padding: 10px;
+  }
+  .app-sidebar .theme-toggle span,
+  .app-sidebar .logout-btn-sidebar span {
+    display: none;
+  }
+  /* Backdrop overlay */
+  .sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+/* Scrollbar styling */
+.app-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.app-sidebar::-webkit-scrollbar-track {
+  background: var(--border-color);
+}
+.app-sidebar::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
 }

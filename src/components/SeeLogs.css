@@ -1,212 +1,348 @@
+/* SeeLogs.css - with Theme Support */
+
 .seelogs-view-container {
-    padding: 40px 20px;
-    background-color: #f1f5f9;
-    min-height: 100vh;
-    font-family: 'Inter', sans-serif;
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg-primary);
+  padding: 20px;
+  transition: background 0.3s ease;
 }
 
 .seelogs-content-wrapper {
-    width: 1200px;
-    max-width: 1160px; /* Wider layout */
-    margin: 0 auto;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Navigation */
+/* Navigation Bar */
 .seelogs-nav-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    marginBottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .seelogs-back-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    color: #64748b;
-    font-weight: 600;
-    font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 10px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.seelogs-back-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .seelogs-action-group {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Buttons */
-.seelogs-btn-csv, .seelogs-btn-pdf {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: all 0.2s;
+.seelogs-btn-csv, .seelogs-btn-pdf, .seelogs-btn-print {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .seelogs-btn-csv {
-    background: #fff;
-    color: #475569;
-    border: 1px solid #e2e8f0;
-}
-
-.seelogs-btn-pdf {
-    background: #2563eb;
-    color: #fff;
-    border: none;
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
 }
 
 .seelogs-btn-csv:hover {
-    background: #f8fafc;
+  background: #22c55e;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.seelogs-btn-pdf {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
 }
 
 .seelogs-btn-pdf:hover {
-    background: #1d4ed8;
+  background: #ef4444;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.seelogs-btn-print {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.seelogs-btn-print:hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-1px);
 }
 
 /* Header Card */
 .seelogs-header-card {
-    background: #fff;
-    padding: 30px;
-    border-radius: 16px 16px 0 0;
-    border-bottom: 2px solid #f1f5f9;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
 }
 
 .seelogs-header-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .seelogs-title-section h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 800;
-    color: #1e293b;
-    letter-spacing: -0.5px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
 }
 
 .seelogs-title-section p {
-    margin: 8px 0 0;
-    color: #64748b;
-    font-size: 14px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
 .seelogs-filter-info {
-    text-align: right;
+  display: flex;
+  gap: 12px;
+}
+
+.dept-tag, .year-tag {
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 .dept-tag {
-    font-size: 13px;
-    font-weight: bold;
-    color: #2563eb;
+  background: var(--primary-light);
+  color: var(--primary-color);
 }
 
 .year-tag {
-    font-size: 13px;
-    color: #64748b;
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
 }
 
-/* Main Table Content */
+/* Main Card */
 .seelogs-main-card {
-    background: #fff;
-    border-radius: 0 0 16px 16px;
-    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-    overflow: hidden;
-    padding: 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
 }
 
+/* Date Group */
 .seelogs-date-group {
-    margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.seelogs-date-group:last-child {
+  border-bottom: none;
 }
 
 .seelogs-date-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f5f9;
-    margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.seelogs-date-header svg {
+  color: var(--primary-color);
 }
 
 .seelogs-date-header h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #1e293b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
 }
 
+/* Table Styles */
 .seelogs-table-responsive {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 .seelogs-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .seelogs-table th {
-    padding: 12px 15px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-align: left;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .seelogs-table td {
-    padding: 15px;
-    font-size: 14px;
-    color: #334155;
+  padding: 14px 16px;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
 }
 
-.seelogs-table tr {
-    border-bottom: 1px solid #f8fafc;
+.seelogs-table tr:last-child td {
+  border-bottom: none;
 }
 
+.seelogs-table tr:hover {
+  background: var(--bg-primary);
+}
+
+/* Student Name Cell */
 .student-name-cell {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .avatar-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: #f1f5f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
 }
 
-.student-name-cell span {
-    font-weight: 600;
-}
-
-.time-in-cell {
-    color: #059669;
-    font-weight: 700;
-}
-
-.time-out-cell {
-    color: #dc2626;
-    font-weight: 700;
+/* Time In/Out Cells */
+.seelogs-table td:nth-child(4),
+.seelogs-table td:nth-child(5) {
+  font-family: monospace;
+  font-weight: 500;
 }
 
 /* Empty State */
 .seelogs-empty-state {
-    padding: 60px;
-    text-align: center;
-    color: #94a3b8;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
 }
 
 .empty-icon {
-    margin-bottom: 15px;
-    opacity: 0.2;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .seelogs-view-container {
+    padding: 16px;
+  }
+  
+  .seelogs-nav-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .seelogs-action-group {
+    justify-content: center;
+  }
+  
+  .seelogs-header-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .seelogs-date-header {
+    padding: 12px 16px;
+  }
+  
+  .seelogs-table th,
+  .seelogs-table td {
+    padding: 10px 12px;
+  }
+  
+  .student-name-cell span {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 480px) {
+  .seelogs-action-group {
+    flex-wrap: wrap;
+  }
+  
+  .seelogs-btn-csv span,
+  .seelogs-btn-pdf span,
+  .seelogs-btn-print span {
+    display: none;
+  }
+  
+  .seelogs-btn-csv,
+  .seelogs-btn-pdf,
+  .seelogs-btn-print {
+    padding: 8px 12px;
+  }
+  
+  .seelogs-table th,
+  .seelogs-table td {
+    font-size: 0.7rem;
+    padding: 8px 10px;
+  }
+  
+  .avatar-circle {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .seelogs-nav-bar {
+    display: none;
+  }
+  
+  .seelogs-view-container {
+    padding: 0;
+    background: white;
+  }
+  
+  .seelogs-header-card,
+  .seelogs-main-card {
+    border: none;
+    box-shadow: none;
+  }
+  
+  .seelogs-date-header {
+    background: none;
+  }
 }

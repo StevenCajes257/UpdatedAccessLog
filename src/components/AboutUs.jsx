@@ -1,22 +1,22 @@
 import React from 'react';
 import './AboutUs.css';
-import member1Img from '../assets/team/Designer.png';
+import member1Img from '../assets/team/UX.png';
 import member2Img from '../assets/team/developer.png';
 import member3Img from '../assets/team/documentationSpecialist.png';
 import member4Img from '../assets/team/QualityAssurance.png';
-import member5Img from '../assets/team/SystemAnalyst.png';
-import member6Img from '../assets/team/ProjectManager.png';
+import member5Img from '../assets/team/SA.png';
+import member6Img from '../assets/team/PM.png';
 
 const AboutUs = () => {
   const teamMembers = [
     {
-      name: "Jigie Caitom",
+      name: "Michelle A. Cajes",
       role: "Project Manager",
       bio: "Strategizes project timelines and resource allocation, ensuring that Access Log meets all security and administrative requirements.",
       image: member6Img
     },
     {
-      name: "Michelle A. Cajes",
+      name: "Maryan Gavas",
       role: "System Analyst",
       bio: "Analyzes organizational data flows to optimize how the system handles high-volume traffic in libraries and corporate offices.",
       image: member5Img
@@ -28,7 +28,7 @@ const AboutUs = () => {
       image: member2Img
     },
     {
-      name: "Marianne T. Gavas",
+      name: "Jigie Caitum",
       role: "Designer (UI/UX)",
       bio: "Focused on creating a high-end, professional interface that simplifies complex attendance reporting for administrators.",
       image: member1Img

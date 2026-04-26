@@ -1,0 +1,176 @@
+.timeout-requests-container {
+  padding: 24px;
+  background: var(--bg-primary);
+  min-height: 100%;
+}
+
+.timeout-header {
+  margin-bottom: 24px;
+}
+
+.timeout-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.timeout-header p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.request-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px 20px;
+  transition: all 0.2s;
+}
+
+.request-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.request-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.user-icon {
+  background: var(--primary-light);
+  border-radius: 50%;
+  padding: 6px;
+  color: var(--primary-color);
+}
+
+.request-user {
+  flex: 1;
+}
+
+.request-user strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.user-id {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-family: monospace;
+}
+
+.request-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.request-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--bg-primary);
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.request-message svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--text-secondary);
+}
+
+.request-meta {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.request-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-approve, .btn-reject {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-approve {
+  background: #10b981;
+  color: white;
+}
+
+.btn-approve:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.btn-reject {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-reject:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.btn-approve:disabled, .btn-reject:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.empty-requests {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  color: var(--text-secondary);
+}
+
+.empty-requests svg {
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+
+.loader-box {
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--primary-color);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

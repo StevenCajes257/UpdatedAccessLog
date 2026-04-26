@@ -145,107 +145,98 @@
   color: #444;
 }
 
-.periods-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+/* ========== GRID LAYOUT (same as OfficialReportView) ========== */
+.report-periods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 8px 4px;
 }
 
-/* Rows */
-.period-row {
+.period-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 14px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.period-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+}
+
+.period-card.is-selected {
+  background: var(--primary-light);
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+}
+
+.period-card-header {
+  text-align: center;
+}
+
+.period-label {
+  font-weight: 700;
+  font-size: 1rem;
+  display: block;
+}
+
+.period-sub {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  display: block;
+}
+
+.period-card-stats {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.period-row:hover {
-  background-color: #f8fafc;
-  border-color: #cbd5e1;
-}
-
-.period-row.is-selected {
-  background-color: #f0f9ff;
-  border-color: #0ea5e9;
-}
-
-.period-row.has-logs {
-  border-left: 4px solid #0ea5e9;
-}
-
-.row-selection {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.custom-checkbox {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #cbd5e1;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0ea5e9;
-}
-
-.is-selected .custom-checkbox {
-  border-color: #0ea5e9;
-  background: #0ea5e9;
-  color: white;
-}
-
-.row-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.row-label {
-  font-weight: 500;
-}
-
-.row-sub {
-  font-size: 0.8rem;
-  color: #64748b;
-}
-
-/* Stats */
-.row-stats {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.stat-pill {
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.75rem;
 }
 
 .stat-pill.count {
-  background: #f1f5f9;
-  color: #64748b;
-}
-
-.stat-pill.count-active {
-  background: #dcfce7;
-  color: #15803d;
+  background: var(--bg-primary);
+  padding: 4px 8px;
+  border-radius: 20px;
 }
 
 .stat-group {
-  font-size: 0.8rem;
   display: flex;
-  gap: 0.75rem;
-  color: #64748b;
+  gap: 12px;
+  font-size: 0.8rem;
 }
 
-/* Floating Action Bar */
+.in-text {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+.out-text {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+.selected-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: var(--primary-color);
+  background: white;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* Floating Action Bar (centered) */
 .floating-action-bar {
   position: fixed;
   bottom: 2rem;
@@ -314,4 +305,24 @@
   padding: 3rem;
   color: #94a3b8;
   font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .report-periods-grid {
+    grid-template-columns: 1fr;
+  }
+  .report-view-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .header-controls {
+    width: 100%;
+  }
+  .floating-action-bar {
+    width: 90%;
+    justify-content: center;
+    white-space: nowrap;
+  }
 }

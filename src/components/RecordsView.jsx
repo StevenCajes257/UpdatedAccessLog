@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebaseConfig';
+import { database as db } from '../firebaseConfig';
 import { ref, onValue } from 'firebase/database';
 import { 
   LogIn, LogOut, Users, RefreshCw, User, 
@@ -41,19 +41,32 @@ export default function RecordsView() {
   const recordsArray = Object.entries(attendance)
     .map(([key, data]) => ({ recordId: key, ...data }))
     .filter(r => r.role !== 'Admin' && r.role !== 'Administrator')
-    .sort((a, b) => new Date(b.timeIn) - new Date(a.timeIn));
+    .sort((a, b) => {
+      const timeA = typeof a.timeIn === 'number' ? a.timeIn : new Date(a.timeIn).getTime();
+      const timeB = typeof b.timeIn === 'number' ? b.timeIn : new Date(b.timeIn).getTime();
+      return timeB - timeA;
+    });
 
   const instructors = recordsArray.filter(r => r.role?.toLowerCase() === 'instructor');
   const staff = recordsArray.filter(r => r.role?.toLowerCase() === 'staff');
   const students = recordsArray.filter(r => r.role?.toLowerCase() === 'student');
   const totalLogouts = recordsArray.filter(r => r.timeOut && r.timeOut !== "--").length;
 
-  const formatTime = (timeStr) => {
-    if (!timeStr || timeStr === "--") return '--:--';
-    const date = new Date(timeStr);
-    return isNaN(date.getTime()) ? timeStr : date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', minute: '2-digit', hour12: true 
-    });
+  const formatTime = (timeValue) => {
+    if (!timeValue || timeValue === "--") return '--:--';
+    if (typeof timeValue === 'number') {
+      const date = new Date(timeValue);
+      return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    }
+    if (typeof timeValue === 'string' && !isNaN(Number(timeValue))) {
+      const date = new Date(Number(timeValue));
+      return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    }
+    const date = new Date(timeValue);
+    if (!isNaN(date.getTime())) {
+      return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    }
+    return timeValue;
   };
 
   const renderActivityGroup = (title, icon, data) => (
@@ -110,7 +123,7 @@ export default function RecordsView() {
 
   return (
     <div className="records-full-viewport">
-      <header className="records-main-nav">
+      <div className="records-main-nav">
         <div className="nav-brand">
           <h1>Activity Records</h1>
           <div className="live-indicator">
@@ -128,11 +141,11 @@ export default function RecordsView() {
              <Calendar size={16} />
              {currentTime.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
           </div>
-          <button className="nav-refresh-btn" onClick={() => window.location.reload()}>
-            <RefreshCw size={16} />
+          <button className="nav-refresh-btn" onClick={() => window.location.reload()} title="Refresh data">
+            <span style={{ fontSize: '18px', fontWeight: 'bold', lineHeight: 1 }}>↻</span>
           </button>
         </div>
-      </header>
+      </div>
 
       <div className="wide-stats-container">
         <div className="wide-stat-card">
